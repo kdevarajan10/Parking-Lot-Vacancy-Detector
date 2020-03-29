@@ -6,7 +6,7 @@ See Homework - 3 description file (Homework-3.pdf) for details.
 
 Assignment steps:
 1.	Create a training dataset.
-    Upload your code for extracting positive/negative sanmples 
+    Upload your code for extracting positive/negative samples 
 2.	Train a cascade classifier using Haar and LBP features.
     Upload your final cascade classifier (.xml) for each
     Do not upload your training data
