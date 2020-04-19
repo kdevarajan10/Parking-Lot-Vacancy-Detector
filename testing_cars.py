@@ -51,7 +51,7 @@ def model_test(img, xmlfilename, detector, scaleFactor, minNeighbors):
 
     print("The number of parking spots that are filled = ", parking_occ)
     print("The number of parking spots that are empty = ", parking_emp)
-    print("------------------------------------------------------")
+    print("\n")
     print("The number of True Positives = ", true_positives)
     print("The number of False Positives = ", false_positives)
     print("The number of True Negatives = ", true_negatives)
@@ -70,10 +70,10 @@ def main():
                         help="Specify the feature type of the classifier to be used (HAAR - HAAR Classifier,  LBP - Local Binary Pattern Classifier)", required=True,
                         type=str, choices=['HAAR', 'LBP'])
     parser.add_argument("-sf", "--scaleFactor", dest="scaleFactor",
-                        help="Specify the scale factor to be used for detection ",
+                        help="Specify how much the image size is reduced at each image scale",
                         type=float, required=True)
     parser.add_argument("-mn", "--minimumNeighbors", dest="minNeighbors",
-                        help="Specify the minimum number of neighbours present for individual detection to be considered ",
+                        help="Specify how many neighbors each candidate rectangle should have to retain it",
                         type=int, required=True)
 
     args = parser.parse_args()
@@ -83,21 +83,19 @@ def main():
         print("ERROR: The path to the image is incorrect. Please try again")
         sys.exit()
     else:
-        output = os.path.splitext(args.imgPath)[0] + args.featureType + "_output.jpg"
+        outputfile = os.path.splitext(args.imgPath)[0] + args.featureType + "_output.jpg"
         xmlfilename = os.path.splitext(args.imgPath)[0] + ".xml"
-        print("-------------------------------------")
-        print("Image Filename: ", args.imgPath)
-        print("-------------------------------------")
+        print("\nImage Filename: ", args.imgPath + "\n")
 
     if args.featureType == 'HAAR':
         detector = cv2.CascadeClassifier("haar_training/cascade.xml")
         result = model_test(img, xmlfilename, detector, args.scaleFactor, args.minNeighbors)
-        cv2.imwrite(output, result)
+        cv2.imwrite(outputfile, result)
 
     if args.featureType == 'LBP':
         detector = cv2.CascadeClassifier("LBP_training/cascade.xml")
         result = model_test(img, xmlfilename, detector, args.scaleFactor, args.minNeighbors)
-        cv2.imwrite(output, result)
+        cv2.imwrite(outputfile, result)
 
 
 if __name__ == "__main__":
