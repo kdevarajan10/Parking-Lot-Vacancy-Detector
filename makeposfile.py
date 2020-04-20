@@ -1,10 +1,12 @@
 import cv2
 import glob
-f = open("info.dat", 'w')
+import os
+f = open("info1.dat", 'w')
 
 for filename in glob.glob('positive_images\\*.jpg'):
+    img_name = os.path.basename(filename)
     img = cv2.imread(filename)
     h = img.shape[0]
     w = img.shape[1]
 
-    f.write(filename + " 1 0 0 " + str(w) + " " + str(h) + "\n")
+    f.write(img_name + " 1 0 0 " + str(w) + " " + str(h) + "\n")
